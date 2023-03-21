@@ -8,7 +8,6 @@ export default function Login() {
     const [password, setPassword] = useState('password');
     const history = useNavigate();
     firebaseApp.auth.onAuthStateChanged(value => {
-        // console.log(value);
         if (value) {
             history('/');
         } else {
