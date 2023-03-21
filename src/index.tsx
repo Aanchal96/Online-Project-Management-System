@@ -11,6 +11,7 @@ import {
 import ProjectList from "./projects";
 import {AddProjectForm} from "./projects/add-project-form";
 import {EditProjectForm} from "./projects/edit-project-form";
+import Login from "./login";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: '/login',
+        element: <Login />
+    }
 ]);
 
 root.render(
