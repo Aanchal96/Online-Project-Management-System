@@ -22,7 +22,7 @@ export default function Login() {
                 <form onSubmit={event => {
                     event.preventDefault();
                     signInWithEmailAndPassword(firebaseApp.auth, email, password).then(r => {
-
+                        history('/projects');
                     });
                 }}>
                     <div className="mb-6">
