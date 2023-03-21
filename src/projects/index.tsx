@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import firebaseApp from "../firebase";
-import {getDocs, collection} from "@firebase/firestore";
+import {getDocs, collection, deleteDoc, doc} from "@firebase/firestore";
 import {Link} from "react-router-dom";
 
 const ProjectList = () => {
@@ -14,9 +14,7 @@ const ProjectList = () => {
                 const newData = querySnapshot.docs
                     .map((doc) => ({...doc.data(), id:doc.id }));
                 setProjects(newData);
-                console.log(projects, newData);
-            })
-
+            });
     }
 
     return <>
@@ -37,10 +35,7 @@ const ProjectList = () => {
                         Project owner
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Category
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                        Price
+                        Due Date
                     </th>
                     <th scope="col" className="px-6 py-3">
                         Action
@@ -59,14 +54,18 @@ const ProjectList = () => {
                                 {value.project_owner}
                             </td>
                             <td className="px-6 py-4">
-                                Laptop
+                                {value.due_date}
                             </td>
-                            <td className="px-6 py-4">
-                                $2999
-                            </td>
-                            <td className="px-6 py-4">
-                                <a href="#"
-                                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <td className="px-6 py-4 gap-2 flex">
+                                <Link to={'/edit-project/' + value.id}
+                                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
+                                <a href="#" onClick={() => {
+                                    if (confirm('Do you really want to delete project?')) {
+                                        const d = doc(collection(firebaseApp.firestore, "projects"), value.id);
+                                        deleteDoc(d).then(r => fetchProjects());
+                                    }
+                                }}
+                                   className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                             </td>
                         </tr>
                     })

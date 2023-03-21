@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import ProjectList from "./projects";
 import {AddProjectForm} from "./projects/add-project-form";
+import {EditProjectForm} from "./projects/edit-project-form";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: 'add-project',
                 element: <AddProjectForm />
+            },
+            {
+                path: 'edit-project/:id',
+                element: <EditProjectForm />
             },
         ]
     },
